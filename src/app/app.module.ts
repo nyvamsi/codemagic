@@ -11,7 +11,10 @@ import { MyLogService } from './common/log.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [MyLogService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    MyLogService, 
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

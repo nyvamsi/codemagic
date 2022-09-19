@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import{ GlobalConstants } from './common/global-constants';
+import { MyLogService } from './common/log.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import{ GlobalConstants } from './common/global-constants';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {
-    console.log("Intial Constant: ", GlobalConstants.GLOBALCONSTANTTITLE);
+  constructor(private mylogger: MyLogService) {
+    mylogger.log("Intial Constant: " + GlobalConstants.GLOBALCONSTANTTITLE);
   }
 }

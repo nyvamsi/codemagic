@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { MyLogService } from '../common/log.service';
+import { GoogleMapConfig } from '../common/GoogleMapConfig'
 
 declare let google: any;
 
@@ -12,19 +13,30 @@ declare let google: any;
 export class MapPage {
   constructor(private mylogger: MyLogService) {}
   @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
+
+  private bfzCoords = new google.maps.LatLng(
+    GoogleMapConfig.BFZCENTERCOORDS.lat,
+    GoogleMapConfig.BFZCENTERCOORDS.lng
+  )
+
   private map: any;
   private infoWindow = new google.maps.InfoWindow();
 
-  private bfzCoords = new google.maps.LatLng(
-    41.833075440573,
-    -87.83557422717308
-  );
-
-  private bfzBounds = {
-    north: 41.840038,
-    south: 41.829313,
-    east: -87.825743,
-    west: -87.844383,
+  private options = {
+    center: this.bfzCoords,
+    zoom: 17,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true,
+    restriction: {
+      latLngBounds: GoogleMapConfig.BFZBOUNDARIES,
+      strictBounds: true,
+    },
+    styles: [
+      {
+        elementType: 'labels.icon',
+        stylers: [{ visibility: 'off' }],
+      },
+    ],
   };
 
   directionsService = new google.maps.DirectionsService();
@@ -49,23 +61,8 @@ export class MapPage {
 
 
   showMap() {
-    const options = {
-      center: this.bfzCoords,
-      zoom: 17,
-      disableDefaultUI: true,
-      // restriction: {
-      //   latLngBounds: this.bfzBounds,
-      //   strictBounds: true,
-      // },
-      styles: [
-        {
-          elementType: 'labels.icon',
-          stylers: [{ visibility: 'off' }],
-        },
-      ],
-    };
     this.mylogger.log ("TESTING showMap")
-    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+    this.map = new google.maps.Map(this.mapRef.nativeElement, this.options);
 
     if(!google || !google.maps){
       this.mylogger.log('Not loaded yet');

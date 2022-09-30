@@ -35,7 +35,12 @@ export class GoogleMapConfig {
           },
         ],
       };
+    }
 
+    public static getYouAreHerePin (googlemaps: any): any {
+      return new googlemaps.maps.Marker({
+        icon: this.youAreHerePin(googlemaps)
+      });
     }
 
     public static youAreHerePin (googlemaps: any): any {

@@ -18,24 +18,11 @@ export class MapPage {
   }
   @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
 
-  private bfzCoords = new google.maps.LatLng(
-    41.833075440573,
-    -87.83557422717308
-  );
-
-  private bfzBounds = {
-    north: 41.840038,
-    south: 41.829313,
-    east: -87.825743,
-    west: -87.844383,
-  };
-
   private map: any;
   private infoWindow = new google.maps.InfoWindow();
 
-  //private options = GoogleMapConfig.getGoogleMapOptions(google);
-
   private readonly youAreHerePin = GoogleMapConfig.youAreHerePin(google)
+  private options = GoogleMapConfig.getGoogleMapOptions(google)
 
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer({
@@ -96,24 +83,8 @@ export class MapPage {
 
 
   showMap() {
-
-  const options = {
-      center: this.bfzCoords,
-      zoom: 17,
-      disableDefaultUI: true,
-      restriction: {
-        latLngBounds: this.bfzBounds,
-        strictBounds: true,
-      },
-      styles: [
-        {
-          elementType: 'labels.icon',
-          stylers: [{ visibility: 'off' }],
-        },
-      ],
-    };
     this.mylogger.log ("TESTING showMap")
-    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+    this.map = new google.maps.Map(this.mapRef.nativeElement, this.options);
 
     this.map.mapTypeId = google.maps.MapTypeId.ROADMAP;
     this.userMarker.setMap(this.map);

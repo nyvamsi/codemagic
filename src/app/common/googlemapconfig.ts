@@ -4,12 +4,12 @@ import { MyLogService } from './log.service';
 export class GoogleMapConfig {
     constructor() {}
 
-    public static BFZCENTERCOORDS = { 
-      lat:41.833075440573, 
-      lng:-87.83557422717308,
+    public static CENTERCOORDS = { 
+      lat:42.12656082401669, 
+      lng:-88.46975747292414,
     };
 
-    public static BFZBOUNDARIES = {
+    public static BOUNDARIES = {
       north: 41.840038,
       south: 41.829313,
       east: -87.825743,
@@ -20,14 +20,10 @@ export class GoogleMapConfig {
 
     public static getGoogleMapOptions (googlemaps: any): any{
       return {
-        center: GoogleMapConfig.BFZCENTERCOORDS,
+        center: GoogleMapConfig.CENTERCOORDS,
         zoom: 17,
         mapTypeId: googlemaps.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true,
-        restriction: {
-          latLngBounds: GoogleMapConfig.BFZBOUNDARIES,
-          strictBounds: true,
-        },
         styles: [
           {
             elementType: 'labels.icon',
@@ -50,5 +46,7 @@ export class GoogleMapConfig {
         labelOrigin: new googlemaps.maps.Point(12, 30),
       };
     }
+
+    
 
 }

@@ -102,6 +102,7 @@ export class MapPage {
     this.mylogger.log ("Got Map Object")
     
   }
+
 }
 
 

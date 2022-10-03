@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { MyLogService } from '../common/log.service';
-import { GoogleMapConfig } from '../common/GoogleMapConfig'
+import { GoogleMapConfig } from '../common/googlemapconfig'
 import { Geolocation } from '@capacitor/geolocation';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { GlobalConstants } from '../common/global-constants';
 
 declare let google: any;
 
@@ -24,11 +25,12 @@ export class MapPage {
   private readonly youAreHerePin = GoogleMapConfig.youAreHerePin(google)
   private options = GoogleMapConfig.getGoogleMapOptions(google)
 
+  
+
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer({
     map: null,
   });
-
 
   LocationService = {
     askToTurnOnGPS: async (): Promise<boolean> => {
@@ -67,8 +69,8 @@ export class MapPage {
         )
       );
 
-      this.mylogger.log("Coordinate: Lat: "  + position.coords.latitude);
-      this.mylogger.log("Coordinate: Long: " + position.coords.longitude);
+      this.mylogger.log("User Location: Lat: "  + position.coords.latitude);
+      this.mylogger.log("User Location: Long: " + position.coords.longitude);
     });
 
   }
@@ -83,15 +85,19 @@ export class MapPage {
 
 
   showMap() {
-    this.mylogger.log ("TESTING showMap")
+    this.mylogger.log ("Start showMap")
+
+    // this.mylogger.log ("Map Options Center Latitude: " + GoogleMapConfig.CENTERCOORDS.lat)
+    // this.mylogger.log ("Map Options Center Longitude: " + GoogleMapConfig.CENTERCOORDS.lng )
+
+    //let pos = GoogleMapConfig.getCenterLocation();
+    //this.options.center = pos;
     this.map = new google.maps.Map(this.mapRef.nativeElement, this.options);
+    //this.map = GoogleMapConfig.setCenterLocation(this.map);
+    //this.map.setCenter(GoogleMapConfig.getCenterLocation())
 
-    this.map.mapTypeId = google.maps.MapTypeId.ROADMAP;
     this.userMarker.setMap(this.map);
-
     this.drawUserPositionMarker().then((value) => {});
-
-
 
     if(!google || !google.maps){
       this.mylogger.log('Not loaded yet');

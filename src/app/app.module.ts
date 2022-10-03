@@ -7,7 +7,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyLogService } from './common/log.service';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 @NgModule({
@@ -16,7 +15,6 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     MyLogService,
-    Geolocation, 
   ],
   bootstrap: [AppComponent],
 })

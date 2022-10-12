@@ -50,6 +50,20 @@ export class Mapv2Page implements OnInit {
     console.log(JSON.stringify(this.map.getCenter()));
   }
 
+  logPosition() {
+    let c: any;
+    navigator.geolocation.getCurrentPosition((position) => {
+      c =  {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+    console.log(JSON.stringify(c));
+    }
+    );
+
+
+  }
+
   addMarker() {
     let lat = this.center.lat + ((Math.random() - 0.5) * 2) / 10;
     let lng = this.center.lng + ((Math.random() - 0.5) * 2) / 10;

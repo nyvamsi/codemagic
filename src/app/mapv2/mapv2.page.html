@@ -15,13 +15,31 @@
 
   <!-- <app-explore-container name="Tab 3 page"></app-explore-container> -->
   <google-map
-  height="500px"
+  height="100%"
   width="100%"
   [zoom]="zoom"
   [center]="center"
   [options]="options"
-></google-map>
+  (mapClick)="click($event)"
+>
+
+<map-marker
+*ngFor="let marker of markers"
+[position]="marker.position"
+[label]="marker.label"
+[title]="marker.title"
+[options]="marker.options"
+></map-marker>
+
+<map-info-window>{{ infoContent }}</map-info-window>
+</google-map>
+<br>
+<br>
 <!-- Use custom zoom buttons -->
 <button (click)="zoomIn()">Zoom in</button>
 <button (click)="zoomOut()">Zoom out</button>
+<button (click)="logCenter()">Log center</button>
+<button (click)="addMarker()">Add marker</button>
+<br>
+<br>
 </ion-content>

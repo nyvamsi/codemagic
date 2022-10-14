@@ -8,22 +8,61 @@ import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 })
 export class Mapv2Page implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
-  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
 
   constructor() {}
   zoom = 17;
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
+    // mapTypeId: 'hybrid',
     zoomControl: false,
     scrollwheel: false,
     disableDoubleClickZoom: true,
     maxZoom: 20,
     minZoom: 8,
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {
+        elementType: 'labels.icon',
+        stylers: [{ visibility: 'off' }],
+      },
+    ],
   };
 
   markers = [];
   infoContent = '';
+  user = {
+    position: { lat:42.12656082401669, lng:-88.46975747292414},
+    label: "User Label",
+    title: "User Title",
+    options: {
+      animation: google.maps.Animation.DROP,
+      // setClickable: true,
+    },
+  }
+
+  arrow_icon = {
+    path: 'M -1.1500216e-4,0 C 0.281648,0 0.547084,-0.13447 0.718801,-0.36481 l 17.093151,-22.89064 c 0.125766,-0.16746 0.188044,-0.36854 0.188044,-0.56899 0,-0.19797 -0.06107,-0.39532 -0.182601,-0.56215 -0.245484,-0.33555 -0.678404,-0.46068 -1.057513,-0.30629 l -11.318243,4.60303 0,-26.97635 C 5.441639,-47.58228 5.035926,-48 4.534681,-48 l -9.06959,0 c -0.501246,0 -0.906959,0.41772 -0.906959,0.9338 l 0,26.97635 -11.317637,-4.60303 c -0.379109,-0.15439 -0.812031,-0.0286 -1.057515,0.30629 -0.245483,0.33492 -0.244275,0.79809 0.0055,1.13114 L -0.718973,-0.36481 C -0.547255,-0.13509 -0.281818,0 -5.7002158e-5,0 Z',
+    strokeColor: 'black',
+    strokeOpacity: 1,
+    strokeWeight: 1,
+    fillColor: '#fefe99',
+    fillOpacity: 1,
+    rotation: -25,
+    scale: 1.0
+  };
+
+  arrow_options = {
+    position: { lat:42.12656082401669, lng:-88.46975747292414},
+    icon: this.arrow_icon,
+    clickable: false,
+    draggable: true,
+    crossOnDrag: true,
+    visible: true,
+    animation: 0,
+    title: 'I am a Draggable-Rotatable Marker!',
+};
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -32,7 +71,9 @@ export class Mapv2Page implements OnInit {
         lng: position.coords.longitude,
       };
     });
+
   }
+  
 
   zoomIn() {
     if (this.zoom < this.options.maxZoom) this.zoom++;
@@ -61,6 +102,7 @@ export class Mapv2Page implements OnInit {
     }
     );
 
+    
 
   }
 
@@ -82,12 +124,14 @@ export class Mapv2Page implements OnInit {
         animation: google.maps.Animation.BOUNCE,
       },
     });
+
+
     console.log("Put Marker: lat: " + lat + "lng: " + lng);
   }
 
   openInfo(marker: MapMarker, content) {
     this.infoContent = content;
-    this.info.open(marker);
+    this.infoWindow.open(marker);
   }
 
 }

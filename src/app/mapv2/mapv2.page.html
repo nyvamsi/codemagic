@@ -24,14 +24,28 @@
 >
 
 <map-marker
+#markerElem="mapMarker"
 *ngFor="let marker of markers"
 [position]="marker.position"
 [label]="marker.label"
 [title]="marker.title"
 [options]="marker.options"
+[clickable]="true"
+(mapClick)="openInfo(markerElem, marker.info)"
 ></map-marker>
 
-<map-info-window>{{ infoContent }}</map-info-window>
+<!-- <map-marker
+[position]="user.position"
+[label]="user.label"
+[title]="user.title"
+[options]="user.options"
+></map-marker> -->
+
+<map-marker
+[options]="arrow_options"
+></map-marker>
+
+<map-info-window >{{ infoContent }}</map-info-window>
 </google-map>
 <br>
 <!-- Use custom zoom buttons -->

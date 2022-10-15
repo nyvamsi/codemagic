@@ -42,8 +42,14 @@
 ></map-marker> -->
 
 <map-marker
+[position]="arrow_options.position"
+[label]="arrow_options.label"
+[title]="arrow_options.title"
 [options]="arrow_options"
+[icon] ="circle_icon"
+[options] = "arrow_options.options"
 ></map-marker>
+
 
 <map-info-window >{{ infoContent }}</map-info-window>
 </google-map>

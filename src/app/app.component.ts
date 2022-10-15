@@ -11,4 +11,5 @@ export class AppComponent {
   constructor(private mylogger: MyLogService) {
     mylogger.log("Intial Constant: " + GlobalConstants.GLOBALCONSTANTTITLE);
   }
+
 }

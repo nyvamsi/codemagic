@@ -7,7 +7,6 @@ import { Mapv2Page } from './mapv2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Mapv2PageRoutingModule } from './mapv2-routing.module';
-import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: Mapv2Page }]),
     Mapv2PageRoutingModule,
-    GoogleMapsModule,
   ],
   declarations: [Mapv2Page]
 })

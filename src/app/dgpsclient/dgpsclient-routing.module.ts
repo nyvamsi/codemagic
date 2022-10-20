@@ -16,8 +16,8 @@ const routes: Routes = [
         loadChildren: () => import('../map/map.module').then(m => m.MapPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'mapv2',
+        loadChildren: () => import('../mapv2/mapv2.module').then(m => m.Mapv2PageModule)
       },
       {
         path: '',

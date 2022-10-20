@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 3
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 3</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- <app-explore-container name="Tab 3 page"></app-explore-container> -->
+  <google-map
+  height="85%"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+  (mapClick)="click($event)"
+>
+
+<map-marker
+#markerElem="mapMarker"
+*ngFor="let marker of markers"
+[position]="marker.position"
+[label]="marker.label"
+[title]="marker.title"
+[options]="marker.options"
+[clickable]="true"
+(mapClick)="openInfo(markerElem, marker.info)"
+></map-marker>
+
+<!-- <map-marker
+[position]="user.position"
+[label]="user.label"
+[title]="user.title"
+[options]="user.options"
+></map-marker> -->
+
+<map-marker
+[position]="arrow_options.position"
+[label]="arrow_options.label"
+[title]="arrow_options.title"
+[options]="arrow_options"
+[icon] ="circle_icon"
+[options] = "arrow_options.options"
+></map-marker>
+
+
+<map-info-window >{{ infoContent }}</map-info-window>
+</google-map>
+<br>
+<!-- Use custom zoom buttons -->
+<button (click)="zoomIn()">Zoom in</button>
+<button (click)="zoomOut()">Zoom out</button>
+<button (click)="logCenter()">Log center</button>
+<button (click)="addMarker()">Add marker</button>
+<button (click)="logPosition()">Log Position</button>
+<br>
+<br>
+</ion-content>
